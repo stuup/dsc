@@ -1,0 +1,85 @@
+---
+layout: layouts/base.njk
+title: Home
+description: "DSC Complete Building Solutions — extensions, alterations and maintenance across Wolverhampton and the West Midlands. Carpentry, roofing, brick laying, plastering, plumbing, electrical and more."
+slides:
+  - service: carpentry
+    image: /images/revslider/main/image_01.jpg
+  - service: tiling
+    image: /images/revslider/main/image_02.jpg
+  - service: roofing
+    image: /images/2016/10/roofing-7.jpg
+    position: center 30%
+slideText:
+  carpentry: "DSC Complete Building Services covers all aspects of Residential and Commercial Carpentry. This includes house building, loft conversions, refurbishments, fitted kitchens, door hanging, locks fitted, wardrobes and windows etc as well as commercial contracts."
+  tiling: "It is our utmost priority to provide a professional tiling service offering excellent workmanship and attention to detail for all of your tiling and refurbishment needs. We strive to exceed our client’s expectations and as professional tilers, we are courteous and always leave your job area clean and tidy."
+  roofing: "Our roofers are of the highest standards achieved by thorough training and years of on-site experience. As a result, DSC Complete Building Solutions has earned the reputation of being one of the best roofing contractors and roofing specialists, with a first class service guaranteed."
+---
+{% from "macros.njk" import serviceCard, featureItem, featureBig, sectionIntro %}
+
+{# Hero slider #}
+<section class="relative h-[520px] overflow-hidden bg-mist md:h-[600px]" aria-roledescription="carousel" aria-label="Featured services" data-slider>
+  {%- for slide in slides %}
+  {%- set svc = collections.services | bySlug(slide.service) %}
+  <div class="absolute inset-0 transition-opacity duration-700 ease-in-out {{ 'opacity-100' if loop.first else 'pointer-events-none opacity-0' }}"
+       role="group" aria-roledescription="slide" aria-label="{{ loop.index }} of {{ slides.length }}" data-slide {% if not loop.first %}aria-hidden="true"{% endif %}>
+    <img src="{{ slide.image }}" alt="" class="absolute inset-0 size-full object-cover" style="object-position: {{ slide.position or 'center top' }}"
+         {% if loop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+    <div class="container-site relative flex h-full items-center md:items-start md:pt-[140px]">
+      <div class="w-full max-w-[460px] bg-charcoal/70 pb-[47px] text-white">
+        <h2 class="border-b border-brand bg-charcoal/70 px-[30px] pt-[21px] pb-5 text-[29px] leading-10 uppercase">
+          <a href="{{ svc.url }}" class="text-white hover:underline">{{ svc.data.title }}</a>
+        </h2>
+        <p class="px-[30px] pt-[23px] pb-10 text-base leading-[26px]">{{ slideText[slide.service] }}</p>
+        <a href="{{ svc.url }}" class="btn btn-ghost ml-[30px]">See more</a>
+      </div>
+    </div>
+  </div>
+  {%- endfor %}
+
+  <div class="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2" role="tablist" aria-label="Choose slide">
+    {%- for slide in slides %}
+    <button type="button" class="size-3 rounded-full border-2 border-white bg-white/30 transition-colors aria-selected:bg-brand aria-selected:border-brand"
+            role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" aria-label="Slide {{ loop.index }}" data-slide-dot></button>
+    {%- endfor %}
+  </div>
+</section>
+
+{# Our services #}
+<section class="bg-mist pt-[70px]">
+  <div class="container-site">
+    {{ sectionIntro("Our Services", "With over 10 years experience and real focus on customer satisfaction, you can rely on us for your next building project.<br class='hidden md:inline'> We provide a professional service for private and commercial customers.") }}
+    <ul class="mt-[50px] grid gap-[30px] sm:grid-cols-2 lg:grid-cols-3">
+      {%- for s in collections.services | head(6) %}
+      {{ serviceCard(s) }}
+      {%- endfor %}
+    </ul>
+  </div>
+  <div class="pt-[67px] pb-[87px] text-center">
+    <a href="/services/" class="btn">View all services</a>
+  </div>
+</section>
+
+{# About #}
+<section class="container-site pt-[90px]">
+  {{ sectionIntro("About Us", "We provide a complete building solution with a real focus on customer satisfaction.<br class='hidden md:inline'> Our installations are carried out by fully trained staff to the highest professional standards.") }}
+  <div class="mt-[50px] grid items-center gap-12 md:grid-cols-2">
+    <img src="/images/2016/10/9E311C8C-8643-4A24-A1CA-C731F45E0E71-480x480.jpg" alt="A completed DSC building project" width="480" height="480" loading="lazy" decoding="async"
+         class="mx-auto aspect-square w-full max-w-[480px] rounded-full border border-line object-cover">
+    <div class="space-y-10">
+      {{ featureItem("hard-hat", "Over 10 years experience", "We combine quality workmanship, superior knowledge and low prices to provide you with service unmatched by our competitors.") }}
+      {{ featureItem("paint-roller", "Best materials", "We have the experience, personnel and resources to make the project run smoothly. We can ensure a job is done on time.") }}
+      {{ featureItem("drill", "Professional standards", "Work with us involves a carefully planned series of steps, centered around a schedule we stick to and daily communication.") }}
+    </div>
+  </div>
+</section>
+
+{# Why choose #}
+<section class="container-site pt-[90px] pb-[66px]">
+  {{ sectionIntro("Why Choose " ~ site.name, "Founded by " ~ site.founder ~ " back in " ~ site.founded ~ ", " ~ site.name ~ "<br class='hidden md:inline'> has established itself as one of the forefront providers of complete building solutions.") }}
+  <div class="mt-[50px] grid gap-12 sm:grid-cols-3">
+    {{ featureBig("house", "Over 10 years experience") }}
+    {{ featureBig("leaf", "Best materials") }}
+    {{ featureBig("warehouse", "Professional standards") }}
+  </div>
+</section>

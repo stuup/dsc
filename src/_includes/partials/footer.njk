@@ -1,0 +1,43 @@
+<footer>
+  {# Contact strip #}
+  <div class="bg-brand py-[30px]">
+    <div class="container-site grid gap-6 md:grid-cols-3">
+      {%- set contacts = [
+        { icon: "phone", html: "Phone:<br><a href='" ~ (site.phone | telHref) ~ "' class='hover:underline'>" ~ site.phone ~ "</a>" },
+        { icon: "map-pin", html: site.address.street ~ ", " ~ site.address.locality ~ ",<br>" ~ site.address.town ~ ", " ~ site.address.postcode },
+        { icon: "mail", html: "E-mail:<br><a href='mailto:" ~ site.email ~ "' class='hover:underline'>" ~ site.email ~ "</a>" }
+      ] %}
+      {%- for c in contacts %}
+      <div class="flex items-center gap-5">
+        <span class="flex size-[88px] shrink-0 items-center justify-center rounded-full bg-white text-brand">{% icon c.icon, "size-10", 1.25 %}</span>
+        <p class="text-base leading-[26px] text-white">{{ c.html | safe }}</p>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+
+  {# About + services #}
+  <div class="bg-mist pt-[70px] pb-[50px]">
+    <div class="container-site grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-[30px]">
+      <div>
+        <h6 class="box-header border-b border-line text-[15px] leading-6 font-medium tracking-normal after:-mb-px">About Us</h6>
+        <p class="mt-6">Founded by {{ site.founder }} back in {{ site.founded }}. {{ site.name }} has established itself as one of the foremost building solutions within the West Midlands area. Covering {{ site.areas | join(", ") }} and surrounding areas.</p>
+      </div>
+      <div class="sm:col-span-1 lg:col-span-3">
+        <h6 class="box-header border-b border-line text-[15px] leading-6 font-medium tracking-normal after:-mb-px">Our Services</h6>
+        <ul class="mt-5 grid gap-x-[30px] lg:grid-flow-col lg:grid-cols-3 lg:grid-rows-4">
+          {%- for s in collections.services %}
+          <li class="flex items-start gap-3 py-[3px]">
+            <span class="mt-1 text-brand">{% icon "chevron-right", "size-4", 2.5 %}</span>
+            <a href="{{ s.url }}" class="hover:text-brand">{{ s.data.title }}</a>
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-[30px] text-center text-muted">
+    <p class="container-site">&copy; {{ "" | year }} {{ site.name }}. All rights reserved.</p>
+  </div>
+</footer>

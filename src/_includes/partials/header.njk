@@ -1,0 +1,65 @@
+<header id="top" class="relative z-30 bg-white py-5 lg:py-[26px]">
+  <div class="container-site flex items-center justify-between gap-6">
+    <a href="/" class="shrink-0" title="{{ site.name }}">
+      <img src="/images/2016/09/logo.png" alt="{{ site.name }}" width="400" height="94" class="h-auto w-[220px] sm:w-[260px] lg:w-[300px]">
+    </a>
+
+    {# Desktop menu #}
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center">
+        {%- for item in nav %}
+        {%- set active = item.url | isActive(page.url) %}
+        <li class="group relative">
+          <a href="{{ item.url }}"
+             class="block py-3 pl-[26px] text-sm leading-6 uppercase transition-colors group-first:pl-0 hover:text-brand {{ 'text-brand' if active else 'text-body' }}"
+             {% if page.url == item.url %}aria-current="page"{% endif %}
+             {% if item.children %}aria-haspopup="true"{% endif %}>{{ item.label }}</a>
+          {%- if item.children %}
+          <ul class="invisible absolute top-full left-[26px] w-[218px] translate-y-1 border border-line bg-white opacity-0 transition-all duration-200 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+            {%- for s in collections[item.children] %}
+            <li class="border-t border-line first:border-t-0">
+              <a href="{{ s.url }}" class="block px-5 py-3 text-sm leading-5 transition-colors hover:text-brand {{ 'text-brand' if page.url == s.url else 'text-body' }}">{{ s.data.title }}</a>
+            </li>
+            {%- endfor %}
+          </ul>
+          {%- endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+    </nav>
+
+    {# Mobile menu toggle #}
+    <button type="button" class="group -mr-2 flex size-11 items-center justify-center text-body hover:text-brand lg:hidden"
+            aria-controls="mobile-menu" aria-expanded="false" data-menu-toggle>
+      <span class="sr-only">Menu</span>
+      <span class="group-aria-expanded:hidden">{% icon "menu", "size-7", 2 %}</span>
+      <span class="hidden group-aria-expanded:block">{% icon "x", "size-7", 2 %}</span>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" aria-label="Mobile" class="hidden lg:hidden" data-menu>
+    <ul class="container-site mt-5 border-t border-line">
+      {%- for item in nav %}
+      {%- set active = item.url | isActive(page.url) %}
+      <li class="border-b border-line">
+        {%- if item.children %}
+        <details {% if active %}open{% endif %} class="group">
+          <summary class="flex cursor-pointer list-none items-center justify-between py-3 text-sm uppercase [&::-webkit-details-marker]:hidden {{ 'text-brand' if active else 'text-body' }}">
+            {{ item.label }}
+            <span class="transition-transform group-open:rotate-180">{% icon "chevron-down", "size-5", 2 %}</span>
+          </summary>
+          <ul class="pb-2 pl-4">
+            <li><a href="{{ item.url }}" class="block py-2 text-sm {{ 'text-brand' if page.url == item.url else 'text-body' }}">All Services</a></li>
+            {%- for s in collections[item.children] %}
+            <li><a href="{{ s.url }}" class="block py-2 text-sm {{ 'text-brand' if page.url == s.url else 'text-body' }}">{{ s.data.title }}</a></li>
+            {%- endfor %}
+          </ul>
+        </details>
+        {%- else %}
+        <a href="{{ item.url }}" class="block py-3 text-sm uppercase {{ 'text-brand' if active else 'text-body' }}">{{ item.label }}</a>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </nav>
+</header>

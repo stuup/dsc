@@ -1,0 +1,22 @@
+---
+layout: layouts/base.njk
+title: Contact
+permalink: /contact/
+description: "Contact DSC Complete Building Solutions, 19 Elmdale Road, Bilston, Wolverhampton, WV14 9AR. Call 07498 478722 or email enquiries@dsccbs.co.uk. 24hr emergency call out."
+---
+{% from "macros.njk" import pageHeader, featureItem %}
+{{ pageHeader(title, [{ label: title }]) }}
+
+<iframe title="Map showing the location of {{ site.name }}"
+        src="https://maps.google.com/maps?q={{ site.geo.lat }},{{ site.geo.lng }}&z=16&output=embed"
+        class="block h-[400px] w-full border-0 grayscale-[30%]" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+<section class="container-site pt-[70px]">
+  <div class="grid gap-10 md:grid-cols-3">
+    {{ featureItem("map-pin", "Address", site.address.street ~ ", " ~ site.address.locality ~ ",<br>" ~ site.address.town ~ ", " ~ site.address.postcode) }}
+    {{ featureItem("phone", "Phone", "<a href='" ~ (site.phone | telHref) ~ "' class='hover:text-brand'>" ~ site.phone ~ "</a><br><a href='mailto:" ~ site.email ~ "' class='hover:text-brand'>" ~ site.email ~ "</a>") }}
+    {{ featureItem("clock", "Opening hours", site.hours ~ "<br>" ~ site.emergency) }}
+  </div>
+</section>
+
+<hr class="container-site mt-[60px] mb-[70px] h-px border-0 bg-linear-to-r from-transparent via-black/60 to-transparent">

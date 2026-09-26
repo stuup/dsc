@@ -1,0 +1,29 @@
+---
+layout: layouts/base.njk
+title: About Us
+permalink: /about/
+description: "Founded by David Baldwin in 2006, DSC Complete Building Solutions provides a complete building service across Wolverhampton and the West Midlands with a real focus on customer satisfaction."
+---
+{% from "macros.njk" import pageHeader, featureItem %}
+{{ pageHeader(title, [{ label: title }]) }}
+
+<section class="container-site grid items-center gap-12 py-[70px] md:grid-cols-2">
+  <img src="/images/2016/10/9E311C8C-8643-4A24-A1CA-C731F45E0E71-480x480.jpg" alt="A completed DSC building project" width="480" height="480" fetchpriority="high"
+       class="mx-auto aspect-square w-full max-w-[480px] rounded-full border border-line object-cover">
+  <div>
+    <h2 class="box-header text-[29px] leading-10 uppercase after:mt-5 after:w-20">We are {{ site.name }}</h2>
+    <p class="mt-[34px] text-base leading-[26px]">
+      Founded by {{ site.founder }} back in {{ site.founded }}, {{ site.name }} has established itself as one of the forefront providers of complete building solutions.
+      We provide a professional service with a real focus on customer satisfaction.
+    </p>
+    <a href="/services/" class="btn mt-10">Our services</a>
+  </div>
+</section>
+
+<section class="bg-mist pt-[70px] pb-[66px]">
+  <div class="container-site grid gap-10 md:grid-cols-3">
+    {{ featureItem("wrench", "Best value", "We combine quality workmanship, superior knowledge and low prices to provide you with service unmatched by our competitors.") }}
+    {{ featureItem("ruler", "Saving time", "We have the experience, personnel and resources to make the project run smoothly. We can ensure a job is done on time.") }}
+    {{ featureItem("paint-bucket", "Within budget", "Work with us involves a carefully planned series of steps, centered around a schedule we stick to and daily communication.") }}
+  </div>
+</section>

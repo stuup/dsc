@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+title: Page Not Found
+permalink: /404.html
+eleventyExcludeFromCollections: true
+---
+{% from "macros.njk" import pageHeader %}
+{{ pageHeader("404", [{ label: "Page not found" }]) }}
+
+<section class="container-site py-[90px] text-center">
+  <h2 class="box-header box-header-center text-[29px] leading-10 uppercase">Page not found</h2>
+  <p class="mx-auto mt-[34px] max-w-2xl text-base leading-[26px]">Sorry, the page you’re looking for doesn’t exist or has moved.</p>
+  <div class="mt-10 flex flex-wrap justify-center gap-4">
+    <a href="/" class="btn">Home</a>
+    <a href="/services/" class="btn">Our services</a>
+  </div>
+</section>

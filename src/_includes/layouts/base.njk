@@ -1,0 +1,87 @@
+{%- set pageTitle = (title ~ " - " ~ site.name) if title else site.name -%}
+{%- set pageDescription = description or site.tagline -%}
+{%- set canonical = page.url | absoluteUrl(site.url) -%}
+{%- set ogImage = (ogImage or "/images/revslider/main/image_01.jpg") | absoluteUrl(site.url) -%}
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ pageTitle }}</title>
+    <meta name="description" content="{{ pageDescription | striptags | truncate(160) }}">
+    <link rel="canonical" href="{{ canonical }}">
+    <meta name="theme-color" content="#82b541">
+    <meta name="format-detection" content="telephone=no">
+
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ site.name }}">
+    <meta property="og:title" content="{{ pageTitle }}">
+    <meta property="og:description" content="{{ pageDescription | striptags | truncate(200) }}">
+    <meta property="og:url" content="{{ canonical }}">
+    <meta property="og:image" content="{{ ogImage }}">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="preload" href="/assets/fonts/raleway-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "GeneralContractor",
+        "name": {{ site.name | dump | safe }},
+        "url": {{ site.url | dump | safe }},
+        "logo": {{ "/images/2016/09/logo.png" | absoluteUrl(site.url) | dump | safe }},
+        "image": {{ ogImage | dump | safe }},
+        "telephone": {{ site.phone | dump | safe }},
+        "email": {{ site.email | dump | safe }},
+        "foundingDate": "{{ site.founded }}",
+        "founder": { "@type": "Person", "name": {{ site.founder | dump | safe }} },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": {{ site.address.street | dump | safe }},
+          "addressLocality": {{ (site.address.locality ~ ", " ~ site.address.town) | dump | safe }},
+          "postalCode": {{ site.address.postcode | dump | safe }},
+          "addressCountry": {{ site.address.country | dump | safe }}
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": {{ site.geo.lat }}, "longitude": {{ site.geo.lng }} },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "07:00",
+          "closes": "17:00"
+        },
+        "areaServed": {{ site.areas | dump | safe }}
+      }
+    </script>
+
+    {%- if site.gaId %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.gaId }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag("js", new Date());
+      gtag("config", "{{ site.gaId }}");
+    </script>
+    {%- endif %}
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:shadow">Skip to content</a>
+
+    {% include "partials/header.njk" %}
+
+    <main id="main" class="flex-1">
+      {{ content | safe }}
+    </main>
+
+    {% include "partials/footer.njk" %}
+
+    <a href="#top" data-scroll-top aria-label="Scroll to top"
+       class="pointer-events-none fixed right-4 bottom-4 z-40 flex size-11 items-center justify-center rounded-full bg-body/80 text-white opacity-0 transition-opacity duration-300 hover:bg-brand data-[visible]:pointer-events-auto data-[visible]:opacity-100">
+      {% icon "arrow-up", "size-5", 2 %}
+    </a>
+
+    <script src="/assets/js/main.js" defer></script>
+  </body>
+</html>

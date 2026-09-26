@@ -1,0 +1,16 @@
+---
+layout: layouts/base.njk
+title: Our Services
+permalink: /services/
+description: "Architectural services, civil engineering, brick laying, carpentry, roofing, plastering, electrical, plumbing, landscaping and fencing, tiling and decorating across Wolverhampton and the West Midlands."
+---
+{% from "macros.njk" import pageHeader, serviceCard %}
+{{ pageHeader(title, [{ label: "Services" }]) }}
+
+<section class="container-site py-[70px]">
+  <ul class="grid gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3">
+    {%- for s in collections.services %}
+    {{ serviceCard(s, loop.index <= 3) }}
+    {%- endfor %}
+  </ul>
+</section>

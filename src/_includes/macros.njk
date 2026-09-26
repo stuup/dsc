@@ -1,0 +1,58 @@
+{# Grey title band with breadcrumb, shown at the top of every inner page #}
+{% macro pageHeader(title, crumbs = []) %}
+<div class="bg-mist shadow-[inset_0_1px_4px_0_rgba(0,0,0,0.05)]">
+  <div class="container-site flex flex-col gap-2 py-8 md:min-h-[100px] md:flex-row md:items-center md:justify-between md:py-[38px]">
+    <h1 class="text-[22px] leading-[34px] uppercase">{{ title }}</h1>
+    <nav aria-label="Breadcrumb" class="text-[13px] leading-5 font-medium text-muted uppercase">
+      <span class="normal-case">You Are Here:</span>
+      <ol class="inline">
+        <li class="inline"><a href="/" class="text-body hover:text-brand">Home</a></li>
+        {%- for c in crumbs %}
+        <li class="inline"><span class="mx-1" aria-hidden="true">/</span>{% if c.url %}<a href="{{ c.url }}" class="text-body hover:text-brand">{{ c.label }}</a>{% else %}<span aria-current="page">{{ c.label }}</span>{% endif %}</li>
+        {%- endfor %}
+      </ol>
+    </nav>
+  </div>
+</div>
+{% endmacro %}
+
+{# Card used on the home page and services index #}
+{% macro serviceCard(service, eager = false) %}
+<li class="bg-white pb-[26px]">
+  <a href="{{ service.url }}" class="block overflow-hidden" tabindex="-1" aria-hidden="true">
+    <img src="{{ service.data.thumbnail.src }}"
+         {% if service.data.thumbnail.src2x %}srcset="{{ service.data.thumbnail.src }} 390w, {{ service.data.thumbnail.src2x }} 750w" sizes="(min-width: 1170px) 370px, (min-width: 768px) 33vw, 100vw"{% endif %}
+         alt="" width="390" height="260" {% if not eager %}loading="lazy"{% endif %} decoding="async"
+         class="aspect-[3/2] w-full object-cover transition-opacity duration-300 hover:opacity-80">
+  </a>
+  <h4 class="box-header box-header-center mt-[22px] px-4 text-lg leading-7 uppercase after:mt-[23px] after:w-10">
+    <a href="{{ service.url }}" class="transition-opacity hover:opacity-60">{{ service.data.title }}</a>
+  </h4>
+  <p class="px-[25px] pt-6 text-center">{{ service.data.excerpt }}</p>
+</li>
+{% endmacro %}
+
+{# Icon in an outlined circle with heading + text alongside #}
+{% macro featureItem(icon, heading, text) %}
+<div class="flex gap-[30px]">
+  <span class="icon-ring size-[88px]">{% icon icon, "size-12", 1 %}</span>
+  <div>
+    {% if heading %}<h4 class="pb-[5px] text-lg leading-7 uppercase">{{ heading }}</h4>{% endif %}
+    <p class="{{ 'mt-[19px]' if heading else 'mt-0 self-center' }}">{{ text | safe }}</p>
+  </div>
+</div>
+{% endmacro %}
+
+{# Large centred icon, used in "Why choose" #}
+{% macro featureBig(icon, heading) %}
+<div class="text-center">
+  <span class="icon-ring mx-auto size-[140px]">{% icon icon, "size-[60px]", 1 %}</span>
+  <h4 class="box-header box-header-center mt-10 text-lg leading-7 uppercase after:w-10">{{ heading }}</h4>
+</div>
+{% endmacro %}
+
+{# Section heading with centred rule and intro paragraph #}
+{% macro sectionIntro(heading, text, level = "h2") %}
+<{{ level }} class="box-header box-header-center text-[29px] leading-10 uppercase">{{ heading }}</{{ level }}>
+{% if text %}<p class="mx-auto mt-[34px] max-w-3xl text-center text-base leading-[26px]">{{ text | safe }}</p>{% endif %}
+{% endmacro %}

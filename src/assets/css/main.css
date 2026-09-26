@@ -1,0 +1,89 @@
+@import "tailwindcss" source(none);
+@source "../../";
+@source "../../../eleventy.config.js";
+
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("/assets/fonts/raleway-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+/* Brand tokens taken from the original Renovate theme + DSC customisation */
+@theme {
+  --font-sans: "Raleway", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #82b541; /* DSC green (logo + theme accent) */
+  --color-brand-dark: #6a9533;
+  --color-ink: #000000; /* headings */
+  --color-body: #444444; /* body copy */
+  --color-muted: #999999;
+  --color-line: #e2e6e7; /* borders, dividers */
+  --color-mist: #f5f5f5; /* grey section bands */
+  --color-charcoal: #262628; /* slider caption panel */
+
+  --container-site: 1170px;
+  --tracking-heading: 1px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-sans text-sm leading-6 text-body antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-heading text-ink;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-4 xl:px-0;
+  }
+
+  /* Headline with the short green rule beneath it */
+  .box-header::after {
+    @apply mt-[13px] block h-0.5 w-10 bg-brand content-[''];
+  }
+  .box-header-center {
+    @apply text-center;
+  }
+  .box-header-center::after {
+    @apply mx-auto mt-5 w-20;
+  }
+
+  /* Pill button — ".more" in the original theme */
+  .btn {
+    @apply inline-block cursor-pointer rounded-full border border-brand bg-brand px-[23px] pt-4 pb-[15px] text-xs leading-none font-bold tracking-heading text-white uppercase transition-colors duration-300 hover:bg-transparent hover:text-ink;
+  }
+  .btn-ghost {
+    @apply border-line bg-transparent text-white hover:border-brand hover:bg-brand hover:text-white;
+  }
+
+  /* Circle-outlined icon used by feature items */
+  .icon-ring {
+    @apply flex shrink-0 items-center justify-center rounded-full border border-line text-brand;
+  }
+
+  /* Long-form copy from Markdown */
+  .content p {
+    @apply mt-6 text-sm leading-6;
+  }
+  .content p:first-child {
+    @apply mt-0;
+  }
+  .content a {
+    @apply font-semibold text-brand-dark hover:underline;
+  }
+}
