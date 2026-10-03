@@ -97,3 +97,56 @@ if (dialog) {
   });
   dialog.addEventListener("close", () => img.removeAttribute("src"));
 }
+
+// Cookie consent — Google Analytics only loads after the visitor accepts.
+const gaId = document.body.dataset.gaId;
+const banner = document.querySelector("[data-cookie-banner]");
+if (gaId && banner) {
+  const KEY = "cookie-consent";
+  const read = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+  const write = (v) => { try { localStorage.setItem(KEY, v); } catch {} };
+
+  let loaded = false;
+  const loadAnalytics = () => {
+    if (loaded) return;
+    loaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("js", new Date());
+    gtag("config", gaId);
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+    document.head.append(s);
+  };
+
+  // GA sets its cookies on the root domain, so clear them there and on the host.
+  const clearAnalyticsCookies = () => {
+    const host = location.hostname;
+    const domains = ["", host, host.replace(/^www\./, ""), "." + host.replace(/^www\./, "")];
+    document.cookie.split(";").map((c) => c.split("=")[0].trim()).filter((n) => /^_ga/.test(n)).forEach((name) =>
+      domains.forEach((d) => (document.cookie = `${name}=; Max-Age=0; path=/${d ? `; domain=${d}` : ""}`)),
+    );
+  };
+
+  banner.querySelectorAll("[data-cookie-choice]").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      const choice = btn.dataset.cookieChoice;
+      write(choice);
+      banner.hidden = true;
+      if (choice === "granted") loadAnalytics();
+      else if (loaded) { clearAnalyticsCookies(); location.reload(); }
+      else clearAnalyticsCookies();
+    }),
+  );
+
+  document.querySelectorAll("[data-cookie-settings]").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      banner.hidden = false;
+      banner.querySelector("[data-cookie-choice]").focus();
+    }),
+  );
+
+  if (read() === "granted") loadAnalytics();
+  else if (read() !== "denied") banner.hidden = false;
+}

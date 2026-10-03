@@ -56,17 +56,8 @@
       }
     </script>
 
-    {%- if site.gaId %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.gaId }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag("js", new Date());
-      gtag("config", "{{ site.gaId }}");
-    </script>
-    {%- endif %}
   </head>
-  <body class="flex min-h-screen flex-col">
+  <body class="flex min-h-screen flex-col"{% if site.gaId %} data-ga-id="{{ site.gaId }}"{% endif %}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:shadow">Skip to content</a>
 
     {% include "partials/header.njk" %}
@@ -81,6 +72,10 @@
        class="pointer-events-none fixed right-4 bottom-4 z-40 flex size-11 items-center justify-center rounded-full bg-body/80 text-white opacity-0 transition-opacity duration-300 hover:bg-brand data-[visible]:pointer-events-auto data-[visible]:opacity-100">
       {% icon "arrow-up", "size-5", 2 %}
     </a>
+
+    {%- if site.gaId %}
+    {% include "partials/cookie-banner.njk" %}
+    {%- endif %}
 
     <script src="/assets/js/main.js" defer></script>
   </body>

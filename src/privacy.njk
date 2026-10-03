@@ -1,0 +1,89 @@
+---
+layout: layouts/base.njk
+title: Privacy & Cookies
+permalink: /privacy/
+description: "How DSC Complete Building Solutions uses personal information and cookies, and the choices you have."
+---
+{% from "macros.njk" import pageHeader %}
+{{ pageHeader(title, [{ label: title }]) }}
+
+<section class="container-site content max-w-[800px] py-[70px]">
+  <p><strong>Last updated:</strong> 3 October 2026</p>
+
+  <h2>Who we are</h2>
+  <p>
+    This website is run by {{ site.name }}, {{ site.address.street }}, {{ site.address.locality }}, {{ site.address.town }}, {{ site.address.postcode }}.
+    We are responsible for any personal information you give us. If you have a question about this policy, email
+    <a href="mailto:{{ site.email }}">{{ site.email }}</a> or call <a href="{{ site.phone | telHref }}">{{ site.phone }}</a>.
+  </p>
+
+  <h2>Information we collect</h2>
+  <ul>
+    <li><strong>When you contact us.</strong> If you phone or email us, we keep your name, contact details and the details of your enquiry or job so that we can reply, quote and carry out the work.</li>
+    <li><strong>Website analytics.</strong> If you accept analytics cookies, Google Analytics collects information about how you use the site, such as the pages you visit, how long you stay, the type of device and browser you use, and your approximate location. We can't identify you from this.</li>
+    <li><strong>Server logs.</strong> Our hosting provider, Netlify, keeps standard technical logs (such as IP addresses and the pages requested) to run the site securely.</li>
+  </ul>
+
+  <h2>How we use it</h2>
+  <p>
+    We use enquiry details to respond to you and to provide our services, which is necessary to take steps towards or carry out a contract with you.
+    We use analytics only with your consent, to understand which pages are useful and to improve the site.
+    We don't sell your information or use it for marketing without asking you first.
+  </p>
+  <p>We keep enquiry and job records only for as long as we need them for the work and for our legal, tax and insurance obligations.</p>
+
+  <h2>Who we share it with</h2>
+  <ul>
+    <li><strong>Google</strong>, which provides Google Analytics (only if you accept cookies) and the map on our <a href="/contact/">contact page</a>. Google may process data outside the UK under appropriate safeguards.</li>
+    <li><strong>Netlify</strong>, which hosts this website.</li>
+    <li>Other people only where the law requires it, or where needed to carry out work you've asked us to do.</li>
+  </ul>
+
+  <h2 id="cookies">Cookies</h2>
+  <p>Cookies are small files stored on your device. We only set analytics cookies if you click <strong>Accept</strong> on our cookie banner.</p>
+  <div class="mt-6 overflow-x-auto">
+    <table class="w-full min-w-[520px] border-collapse text-left">
+      <thead>
+        <tr class="border-b border-line text-ink">
+          <th scope="col" class="py-2 pr-4 font-semibold">Cookie</th>
+          <th scope="col" class="py-2 pr-4 font-semibold">Set by</th>
+          <th scope="col" class="py-2 pr-4 font-semibold">Purpose</th>
+          <th scope="col" class="py-2 font-semibold">Expires</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-line">
+          <td class="py-2 pr-4"><code>_ga</code></td>
+          <td class="py-2 pr-4">Google Analytics</td>
+          <td class="py-2 pr-4">Distinguishes visitors so we can count them</td>
+          <td class="py-2">2 years</td>
+        </tr>
+        <tr class="border-b border-line">
+          <td class="py-2 pr-4"><code>_ga_{{ site.gaId | replace("G-", "") }}</code></td>
+          <td class="py-2 pr-4">Google Analytics</td>
+          <td class="py-2 pr-4">Keeps track of your visit</td>
+          <td class="py-2">2 years</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    We also remember whether you accepted or rejected cookies using your browser's local storage, so we don't ask you again on every page.
+    The Google map on our contact page is provided by Google, which may set its own cookies. See <a href="https://policies.google.com/technologies/cookies" rel="noopener">Google's cookie policy</a>.
+  </p>
+  <p>
+    You can change your mind at any time:
+    <button type="button" data-cookie-settings class="cursor-pointer font-semibold text-brand-dark hover:underline">change your cookie settings</button>.
+    You can also block or delete cookies in your browser settings.
+  </p>
+
+  <h2>Your rights</h2>
+  <p>
+    Under UK data protection law you can ask for a copy of the personal information we hold about you, and ask us to correct it, delete it, or stop using it.
+    To do this, contact us using the details above. We'll reply within one month.
+  </p>
+  <p>
+    If you're unhappy with how we've handled your information, please tell us first. You also have the right to complain to the
+    <a href="https://ico.org.uk/make-a-complaint/" rel="noopener">Information Commissioner's Office (ICO)</a>.
+  </p>
+</section>

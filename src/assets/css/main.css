@@ -83,6 +83,12 @@
   .content p:first-child {
     @apply mt-0;
   }
+  .content h2 {
+    @apply mt-10 text-lg leading-7 uppercase;
+  }
+  .content ul {
+    @apply mt-6 list-disc space-y-3 pl-5 marker:text-brand;
+  }
   .content a {
     @apply font-semibold text-brand-dark hover:underline;
   }
